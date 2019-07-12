@@ -1,0 +1,2 @@
+import EdwardRobot
+EdwardRobot.init()
