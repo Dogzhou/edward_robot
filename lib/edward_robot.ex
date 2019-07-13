@@ -1,8 +1,8 @@
 defmodule EdwardRobot do
   @moduledoc false
-  @type word() :: String.t()
-  defstruct x: 0, y: 0, direction: nil
   import Tabletop
+  defstruct x: 0, y: 0, direction: nil
+  @type word() :: String.t()
 
   @valid_directions Direction.directions()
 
@@ -18,10 +18,10 @@ defmodule EdwardRobot do
   """
   @spec place(direction :: atom, x :: integer, y :: integer) :: atom | {:error, word()}
   def place(direction, x, y) when valid_x?(x) and valid_y?(y) and direction in @valid_directions  do
-    Agent.update(:edward_robot, & &1 = %EdwardRobot{x: x, y: y, direction: direction})
+    update_robot(x, y, direction)
   end
 
-  def place(_, _, _), do: {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
+  def place(_, _, _), do: CustomError.invalid_placement()
 
   @doc """
   Turn robot direction to the left
@@ -61,7 +61,7 @@ defmodule EdwardRobot do
   defp update_placement(x, y, direction) when direction == :north and y < 5, do: update_robot(x, y + 1, direction)
   defp update_placement(x, y, direction) when direction == :west and x > 0, do: update_robot(x - 1, y, direction)
   defp update_placement(x, y, direction) when direction == :south and y > 0, do: update_robot(x, y - 1, direction)
-  defp update_placement(_, _, _),  do: {:error, "invalid command, robot will fall down the tabletop"}
+  defp update_placement(_, _, _),  do: CustomError.invalid_movement()
 
   defp update_robot(x, y, direction) do
     Agent.update(:edward_robot, & &1 = %EdwardRobot{x: x, y: y, direction: direction})
@@ -77,7 +77,7 @@ defmodule EdwardRobot do
     robot = Agent.get(:edward_robot, & &1)
 
     if robot.direction == nil do
-      {:error, "Robot hasn't been placed correctly yet."}
+      CustomError.invalid_report()
     else
       "#{robot.x}, #{robot.y}, #{robot.direction}"
     end

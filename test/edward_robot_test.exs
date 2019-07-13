@@ -31,17 +31,17 @@ defmodule EdwardRobotTest do
     end
 
     test "return error if wrong placement" do
-      assert EdwardRobot.place(:invalid_direction, 0, 0) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
-      assert EdwardRobot.place(:east, 6, 5) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
-      assert EdwardRobot.place(:west, 5, 6) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
-      assert EdwardRobot.place(:north, 0, -1) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
-      assert EdwardRobot.place(:north, -1, 0) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid"}
+      assert EdwardRobot.place(:invalid_direction, 0, 0) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+      assert EdwardRobot.place(:east, 6, 5) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+      assert EdwardRobot.place(:west, 5, 6) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+      assert EdwardRobot.place(:north, 0, -1) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+      assert EdwardRobot.place(:north, -1, 0) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
     end
 
     test "return error if hasn't correctly placed robot when report" do
       EdwardRobot.place(:invalid_direction, 0, 0)
 
-      assert EdwardRobot.report == {:error, "Robot hasn't been placed correctly yet."}
+      assert EdwardRobot.report == {:error, "invalid command, robot should be placed first."}
     end
   end
 
@@ -90,7 +90,7 @@ defmodule EdwardRobotTest do
     test "move east fall off the tabletop" do
       EdwardRobot.place(:east, 5, 5)
 
-      assert EdwardRobot.move() == {:error, "invalid command, robot will fall down the tabletop"}
+      assert EdwardRobot.move() == {:error, "invalid command, robot will fall down the tabletop."}
       assert EdwardRobot.report() == "5, 5, east"
     end
 
