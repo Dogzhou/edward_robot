@@ -3,21 +3,9 @@ defmodule EdwardRobot do
   @type word() :: String.t()
   defstruct x: 0, y: 0, direction: nil
 
-  @valid_directions ~w(east north south west)a
+  @valid_directions Direction.directions()
   @valid_x 0..5
   @valid_y 0..5
-  @left_direction_map %{
-    :east => :north,
-    :north => :west,
-    :west => :south,
-    :south => :east
-  }
-  @right_direction_map %{
-    :east => :south,
-    :south => :west,
-    :west => :north,
-    :north => :east
-  }
 
   @doc """
   Initialize Edward Robot, create a robot pid to store state
@@ -33,7 +21,7 @@ defmodule EdwardRobot do
   valid y value is within 0 -> 5
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
-  @spec place(direction :: atom, x :: integer, y :: integer) :: pid() | {:error, word()}
+  @spec place(direction :: atom, x :: integer, y :: integer) :: atom | {:error, word()}
   def place(direction, x, y) when x in @valid_x and y in @valid_y and direction in @valid_directions  do
     Agent.update(:edward_robot, & &1 = %EdwardRobot{x: x, y: y, direction: direction})
   end
@@ -43,23 +31,23 @@ defmodule EdwardRobot do
   @doc """
   Turn robot direction to the left
   """
-  @spec left() :: :atom
+  @spec left() :: atom
   def left do
-    update_robot(robot.x, robot.y, @left_direction_map[robot.direction])
+    update_robot(robot.x, robot.y, Direction.left_from(robot.direction))
   end
 
   @doc """
   Turn robot direction to the right
   """
-  @spec right() :: :atom
+  @spec right() :: atom
   def right do
-    update_robot(robot.x, robot.y, @right_direction_map[robot.direction])
+    update_robot(robot.x, robot.y, Direction.right_from(robot.direction))
   end
 
   @doc """
   Move robot 1 unit forward
   """
-  @spec move() :: :atom
+  @spec move() :: atom
   def move do
     update_placement(robot.x, robot.y, robot.direction)
   end
