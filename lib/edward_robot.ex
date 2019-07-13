@@ -1,4 +1,5 @@
 defmodule EdwardRobot do
+  @moduledoc false
   @type word() :: String.t()
   defstruct x: 0, y: 0, direction: nil
 
