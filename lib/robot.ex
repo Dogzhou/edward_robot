@@ -6,7 +6,6 @@ defmodule EdwardRobot.Robot do
   defstruct x: 0, y: 0, direction: nil
   @type word() :: String.t()
 
-
   @doc """
   Initialize Edward Robot, create a robot pid to store state
   """
@@ -17,8 +16,8 @@ defmodule EdwardRobot.Robot do
   @doc """
   Place robot on the tabletop
   """
-  @spec place(direction :: atom, x :: integer, y :: integer) :: atom | {:error, word()}
-  def place(direction, x, y) when valid_x?(x) and valid_y?(y) and direction in @valid_directions  do
+  @spec place(x :: integer, y :: integer, direction :: atom) :: atom | {:error, word()}
+  def place(x, y, direction) when valid_x?(x) and valid_y?(y) and direction in @valid_directions  do
     update_robot(x, y, direction)
   end
 
@@ -58,10 +57,10 @@ defmodule EdwardRobot.Robot do
     Agent.get(:edward_robot, & &1)
   end
 
-  defp update_placement(x, y, direction) when direction == :east and x < 5, do: update_robot(x + 1, y, direction)
-  defp update_placement(x, y, direction) when direction == :north and y < 5, do: update_robot(x, y + 1, direction)
-  defp update_placement(x, y, direction) when direction == :west and x > 0, do: update_robot(x - 1, y, direction)
-  defp update_placement(x, y, direction) when direction == :south and y > 0, do: update_robot(x, y - 1, direction)
+  defp update_placement(x, y, :east)  when valid_x?(x + 1), do: update_robot(x + 1, y, :east)
+  defp update_placement(x, y, :north) when valid_y?(y + 1), do: update_robot(x, y + 1, :north)
+  defp update_placement(x, y, :west)  when valid_x?(x - 1), do: update_robot(x - 1, y, :west)
+  defp update_placement(x, y, :south) when valid_y?(y - 1), do: update_robot(x, y - 1, :south)
   defp update_placement(_, _, _),  do: CustomError.invalid_movement()
 
   defp update_robot(x, y, direction) do

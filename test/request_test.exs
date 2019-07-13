@@ -9,10 +9,10 @@ defmodule RequestTest do
   end
 
   describe "whole function" do
-    @describe :request_test
+    @describetag :request_test
 
     test "senario 1" do
-      place :east, 0, 0
+      place 0, 0, :east
       move
       move
       move
@@ -26,9 +26,9 @@ defmodule RequestTest do
     end
 
     test "senario 2" do
-      place :east, 0, 0
+      place 0, 0, :east
       move
-      place :west, 3, 4
+      place 3, 4, :west
       move
       move
       move
@@ -42,12 +42,12 @@ defmodule RequestTest do
     end
 
     test "senario 3" do
-      place :south, 3, 5
+      place 3, 5, :south
       move
-      place :invalid, 1, 2
+      place 1, 2, :invalid
       move
       right
-      place :east, 6, 2
+      place 6, 2, :east
 
       assert report == "3, 3, west"
     end
