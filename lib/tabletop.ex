@@ -1,4 +1,5 @@
-defmodule Tabletop do
+defmodule EdwardRobot.Tabletop do
+  alias EdwardRobot.CustomError
   @moduledoc false
   @max_x 5
   @max_y 5

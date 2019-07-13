@@ -1,4 +1,4 @@
-defmodule CustomError do
+defmodule EdwardRobot.CustomError do
   @moduledoc false
 
   @invalid_placement "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."

@@ -1,6 +1,7 @@
 defmodule DirectionTest do
   use ExUnit.Case
-  doctest Direction
+  doctest EdwardRobot.Direction
+  alias EdwardRobot.Direction
 
   test ".directions" do
     assert Direction.directions == [:east, :north, :south, :west]

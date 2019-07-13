@@ -1,16 +1,17 @@
-defmodule EdwardRobot do
+defmodule EdwardRobot.Robot do
   @moduledoc false
-  import Tabletop
+  import EdwardRobot.Tabletop
+  alias EdwardRobot.{CustomError, Direction, Robot, Tabletop}
+  @valid_directions Direction.directions()
   defstruct x: 0, y: 0, direction: nil
   @type word() :: String.t()
 
-  @valid_directions Direction.directions()
 
   @doc """
   Initialize Edward Robot, create a robot pid to store state
   """
   def init do
-    Agent.start_link(fn -> %EdwardRobot{} end, name: :edward_robot)
+    Agent.start_link(fn -> %Robot{} end, name: :edward_robot)
   end
 
   @doc """
@@ -64,7 +65,7 @@ defmodule EdwardRobot do
   defp update_placement(_, _, _),  do: CustomError.invalid_movement()
 
   defp update_robot(x, y, direction) do
-    Agent.update(:edward_robot, & &1 = %EdwardRobot{x: x, y: y, direction: direction})
+    Agent.update(:edward_robot, & &1 = %Robot{x: x, y: y, direction: direction})
   end
 
   @doc """
@@ -74,11 +75,9 @@ defmodule EdwardRobot do
   """
   @spec report :: word() | {:error, word()}
   def report do
-    robot = Agent.get(:edward_robot, & &1)
+    robot = get_robot()
 
-    if robot.direction == nil do
-      CustomError.invalid_report()
-    else
+    with true <- Tabletop.robot_on_tabletop?(robot) do
       "#{robot.x}, #{robot.y}, #{robot.direction}"
     end
   end

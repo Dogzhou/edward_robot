@@ -1,2 +1,2 @@
-import EdwardRobot
-EdwardRobot.init()
+import EdwardRobot.Robot
+init()

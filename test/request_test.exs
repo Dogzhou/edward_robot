@@ -1,9 +1,9 @@
 defmodule RequestTest do
   use ExUnit.Case
-  import EdwardRobot, only: [place: 3, left: 0, right: 0, move: 0, report: 0]
+  import EdwardRobot.Robot
 
   setup do
-    EdwardRobot.init
+    init()
 
     :ok
   end

@@ -1,4 +1,4 @@
-defmodule Direction do
+defmodule EdwardRobot.Direction do
   @moduledoc """
   provide direction functions
   """
