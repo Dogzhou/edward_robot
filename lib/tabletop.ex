@@ -15,4 +15,16 @@ defmodule EdwardRobot.Tabletop do
       unquote(y) in 0..unquote(@max_y)
     end
   end
+
+  @doc """
+  check if robot is on the tabletop
+
+  robot's direction is nil if it's never been placed correctly
+  """
+  def robot_on_tabletop?(robot) do
+    case robot.direction do
+      nil -> CustomError.invalid_report()
+      _ -> true
+    end
+  end
 end
