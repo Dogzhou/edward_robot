@@ -45,5 +45,55 @@ defmodule EdwardRobotTest do
     end
   end
 
-  defp place_robot_on_valid_spot(context), do: EdwardRobot.place(:east, 0, 0)
+  test ".left" do
+    EdwardRobot.place(:east, 0, 0)
+
+    EdwardRobot.left()
+    assert EdwardRobot.report() == "0, 0, north"
+
+    EdwardRobot.left()
+    assert EdwardRobot.report() == "0, 0, west"
+
+    EdwardRobot.left()
+    assert EdwardRobot.report() == "0, 0, south"
+
+    EdwardRobot.left()
+    assert EdwardRobot.report() == "0, 0, east"
+  end
+
+  test "right from east" do
+    EdwardRobot.place(:east, 0, 0)
+
+    EdwardRobot.right()
+    assert EdwardRobot.report() == "0, 0, south"
+
+    EdwardRobot.right()
+    assert EdwardRobot.report() == "0, 0, west"
+
+    EdwardRobot.right()
+    assert EdwardRobot.report() == "0, 0, north"
+
+    EdwardRobot.right()
+    assert EdwardRobot.report() == "0, 0, east"
+  end
+
+  describe ".move & .report" do
+    @describetag :function
+
+    test "move east on tabletop" do
+      EdwardRobot.place(:east, 4, 5)
+      EdwardRobot.move()
+
+      assert EdwardRobot.report() == "5, 5, east"
+    end
+
+    test "move east fall off the tabletop" do
+      EdwardRobot.place(:east, 5, 5)
+
+      assert EdwardRobot.move() == {:error, "invalid command, robot will fall down the tabletop"}
+      assert EdwardRobot.report() == "5, 5, east"
+    end
+
+    # Test for move other directions
+  end
 end
