@@ -9,6 +9,8 @@ This project is an Elixir solution for the classic code exercise: [toy robot sim
 
 Edward Zhou(edwardzhou1990@gmail.com)
 
+### Envrionment
+Elixir 1.18.1 or Docker
 
 ### Install
 
@@ -18,7 +20,7 @@ if Elixir 1.18.1 has been installed on your local
 $ mix deps.get
 ```
 
-or
+if not please use docker
 
 ``` shell
 $ docker build -t edward_robot .
@@ -59,7 +61,3 @@ $ mix test
 ``` shell
 $ mix credo
 ```
-
-### TODO
-Update tabletop module name
-update request test description

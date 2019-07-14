@@ -1,7 +1,7 @@
 defmodule EdwardRobot.Robot do
   @moduledoc false
-  import EdwardRobot.Tabletop
-  alias EdwardRobot.{CustomError, Direction, Robot, Tabletop}
+  import EdwardRobot.Validator
+  alias EdwardRobot.{CustomError, Direction, Robot, Validator}
   @valid_directions Direction.directions()
   defstruct x: 0, y: 0, direction: nil
   @type word() :: String.t()
@@ -76,7 +76,7 @@ defmodule EdwardRobot.Robot do
   def report do
     robot = get_robot()
 
-    with true <- Tabletop.robot_on_tabletop?(robot) do
+    with true <- Validator.robot_on_tabletop?(robot) do
       "#{robot.x}, #{robot.y}, #{robot.direction}"
     end
   end

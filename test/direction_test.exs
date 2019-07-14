@@ -1,6 +1,5 @@
 defmodule DirectionTest do
   use ExUnit.Case
-  doctest EdwardRobot.Direction
   alias EdwardRobot.Direction
 
   test ".directions" do

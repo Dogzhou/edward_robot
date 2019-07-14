@@ -1,4 +1,4 @@
-defmodule EdwardRobot.Tabletop do
+defmodule EdwardRobot.Validator do
   alias EdwardRobot.CustomError
   @moduledoc false
   @max_x 5
