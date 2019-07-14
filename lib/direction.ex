@@ -13,10 +13,10 @@ defmodule EdwardRobot.Direction do
   return the direction after turning left from a direction
   """
   @spec left_from(direction :: atom) :: atom
-  def left_from(:east),  do: :north
+  def left_from(:east), do: :north
   def left_from(:north), do: :west
-  def left_from(:west),  do: :south
-  def left_from(:south),  do: :east
+  def left_from(:west), do: :south
+  def left_from(:south), do: :east
 
   @doc """
   return the direction after turning right from a direction

@@ -12,7 +12,7 @@ defmodule RequestTest do
     @describetag :request_test
 
     test "senario 1" do
-      place 0, 0, :east
+      place(0, 0, :east)
       move
       move
       move
@@ -26,9 +26,9 @@ defmodule RequestTest do
     end
 
     test "senario 2" do
-      place 0, 0, :east
+      place(0, 0, :east)
       move
-      place 3, 4, :west
+      place(3, 4, :west)
       move
       move
       move
@@ -42,12 +42,12 @@ defmodule RequestTest do
     end
 
     test "senario 3" do
-      place 3, 5, :south
+      place(3, 5, :south)
       move
-      place 1, 2, :invalid
+      place(1, 2, :invalid)
       move
       right
-      place 6, 2, :east
+      place(6, 2, :east)
 
       assert report == "3, 3, west"
     end

@@ -3,7 +3,7 @@ defmodule RobotTest do
   alias EdwardRobot.Robot
 
   setup do
-    Robot.init
+    Robot.init()
 
     :ok
   end
@@ -31,17 +31,31 @@ defmodule RobotTest do
     end
 
     test "return error if wrong placement" do
-      assert Robot.place(:invalid_direction, 0, 0) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
-      assert Robot.place(6, 5, :east) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
-      assert Robot.place(5, 6, :west) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
-      assert Robot.place(0, -1, :north) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
-      assert Robot.place(-1, 0, :north) == {:error, "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+      assert Robot.place(:invalid_direction, 0, 0) ==
+               {:error,
+                "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+
+      assert Robot.place(6, 5, :east) ==
+               {:error,
+                "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+
+      assert Robot.place(5, 6, :west) ==
+               {:error,
+                "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+
+      assert Robot.place(0, -1, :north) ==
+               {:error,
+                "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
+
+      assert Robot.place(-1, 0, :north) ==
+               {:error,
+                "Invalid command, please make sure the robot placement is within 5 * 5 tabletop and direction is valid."}
     end
 
     test "return error if hasn't correctly placed robot when report" do
       Robot.place(0, 0, :invalid_direction)
 
-      assert Robot.report == {:error, "invalid command, robot should be placed first."}
+      assert Robot.report() == {:error, "invalid command, robot should be placed first."}
     end
   end
 

@@ -15,7 +15,8 @@ defmodule ValidatorTest do
     test "sad path" do
       robot = %Robot{x: 0, y: 0, direction: nil}
 
-      assert Validator.robot_on_tabletop?(robot) == {:error, "invalid command, robot should be placed first."}
+      assert Validator.robot_on_tabletop?(robot) ==
+               {:error, "invalid command, robot should be placed first."}
     end
   end
 

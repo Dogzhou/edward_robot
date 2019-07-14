@@ -3,7 +3,7 @@ defmodule DirectionTest do
   alias EdwardRobot.Direction
 
   test ".directions" do
-    assert Direction.directions == [:east, :north, :south, :west]
+    assert Direction.directions() == [:east, :north, :south, :west]
   end
 
   test ".left_from" do
