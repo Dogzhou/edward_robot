@@ -1,21 +1,65 @@
-# EdwardRobot
+Edward Robot
+==============
 
-**TODO: Add description**
+### About
 
-## Installation
+This project is an Elixir solution for the classic code exercise: [toy robot simulator](problem.md)
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `edward_robot` to your list of dependencies in `mix.exs`:
+### Custodian
 
-```elixir
-def deps do
-  [
-    {:edward_robot, "~> 0.1.0"}
-  ]
-end
+Edward Zhou(edwardzhou1990@gmail.com)
+
+
+### Install
+
+if Elixir 1.18.1 has been installed on your local
+
+```shell
+$ mix deps.get
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/edward_robot](https://hexdocs.pm/edward_robot).
+or
 
+``` shell
+$ docker build -t edward_robot .
+```
+
+### Usage
+
+open iex on local or in docker
+
+``` shell
+$ iex -S mix
+```
+
+or
+
+``` shell
+$ docker run -ti edward_robot iex -S mix
+```
+
+``` shell
+iex> place 5, 5, :east
+iex> move
+iex> left
+iex> right
+iex> report
+iex> move
+iex> report
+```
+
+### Development
+
+#### Testing
+``` shell
+$ mix test
+```
+
+#### Style check
+``` shell
+$ mix credo
+```
+
+### TODO
+Update tabletop module name
+update request test description
