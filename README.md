@@ -10,11 +10,11 @@ This project is an Elixir solution for the classic code exercise: [toy robot sim
 Edward Zhou(edwardzhou1990@gmail.com)
 
 ### Envrionment
-Elixir 1.18.1 or Docker
+Elixir 1.11 or Docker
 
 ### Install
 
-if Elixir 1.18.1 has been installed on your local
+if Elixir 1.11 has been installed on your local
 
 ```shell
 $ mix deps.get

@@ -1,4 +1,4 @@
-FROM elixir:1.8.1
+FROM elixir:1.11
 
 MAINTAINER Edward Zhou
 
