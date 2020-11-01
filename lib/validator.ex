@@ -1,5 +1,5 @@
 defmodule EdwardRobot.Validator do
-  alias EdwardRobot.CustomError
+  alias EdwardRobot.{CustomError, Robot}
   @moduledoc false
   @max_x 5
   @max_y 5
@@ -21,6 +21,7 @@ defmodule EdwardRobot.Validator do
 
   robot's direction is nil if it's never been placed correctly
   """
+  @spec robot_on_tabletop?(robot :: Robot.t()) :: String.t() | true
   def robot_on_tabletop?(robot) do
     case robot.direction do
       nil -> CustomError.invalid_report()

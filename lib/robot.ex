@@ -3,8 +3,13 @@ defmodule EdwardRobot.Robot do
   import EdwardRobot.Validator
   alias EdwardRobot.{CustomError, Direction, Robot, Validator}
   @valid_directions Direction.directions()
-  defstruct x: 0, y: 0, direction: nil
-  @type word() :: String.t()
+  defstruct [:x, :y, :direction]
+  @type direction :: Direction.direction
+  @type t() :: %__MODULE__{
+    x: integer,
+    y: integer,
+    direction: direction
+  }
 
   @doc """
   Initialize Edward Robot, create a robot pid to store state
@@ -16,7 +21,7 @@ defmodule EdwardRobot.Robot do
   @doc """
   Place robot on the tabletop
   """
-  @spec place(x :: integer, y :: integer, direction :: atom) :: atom | {:error, word()}
+  @spec place(x :: integer, y :: integer, direction :: direction) :: atom | {:error, String.t()}
   def place(x, y, direction)
       when valid_x?(x) and valid_y?(y) and direction in @valid_directions do
     update_robot(x, y, direction)
@@ -47,7 +52,7 @@ defmodule EdwardRobot.Robot do
   @doc """
   Move robot 1 unit forward
   """
-  @spec move() :: atom
+  @spec move() :: atom | {:error, String.t()}
   def move do
     robot = get_robot()
 
@@ -73,7 +78,7 @@ defmodule EdwardRobot.Robot do
 
   Display error message if haven't place robot on a valid spot
   """
-  @spec report :: word() | {:error, word()}
+  @spec report :: String.t() | {:error, String.t()}
   def report do
     robot = get_robot()
 
