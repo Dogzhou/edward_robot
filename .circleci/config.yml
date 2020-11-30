@@ -1,0 +1,78 @@
+version: 2.1
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - generate_documentation:
+          requires:
+            - build
+jobs:
+  build:
+    docker:
+      # Bump cache key versions below when changing elixir version
+      - image: circleci/elixir:1.11.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependency-cache-{{ checksum "mix.lock" }}
+            - v1-dependency-cache
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix deps.compile
+      - run: mix compile
+      - run:
+          command: mix compile
+          environment:
+            MIX_ENV: test
+      - save_cache:
+          key: v1-dependency-cache-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - ~/.mix
+      - restore_cache:
+          keys:
+            - v1-plt-cache-{{ checksum "mix.lock" }}
+            - v1-plt-cache
+      - run: mix dialyzer --plt
+      - save_cache:
+          key: v1-plt-cache-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - ~/.mix
+
+  test:
+    docker:
+      - image: circleci/elixir:1.11.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependency-cache-{{ checksum "mix.lock" }}
+          - v1-dependency-cache
+    - run: mix dialyzer --halt-exit-status
+    - run: mix credo
+    - run: mix coveralls.html
+    - run: mix format --check-formatted
+    - store_artifacts:
+        path: cover
+        destination: test_coverage
+
+  generate_documentation:
+    docker:
+    - image: circleci/elixir:1.11.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependency-cache-{{ checksum "mix.lock" }}
+          - v1-dependency-cache
+    - run: mix docs
+    - store_artifacts:
+        path: doc
+        destination: documentation
