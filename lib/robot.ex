@@ -4,12 +4,12 @@ defmodule EdwardRobot.Robot do
   alias EdwardRobot.{CustomError, Direction, Robot, Validator}
   @valid_directions Direction.directions()
   defstruct [:x, :y, :direction]
-  @type direction :: Direction.direction
+  @type direction :: Direction.direction()
   @type t() :: %__MODULE__{
-    x: integer,
-    y: integer,
-    direction: direction
-  }
+          x: integer,
+          y: integer,
+          direction: direction
+        }
 
   @doc """
   Initialize Edward Robot, create a robot pid to store state
