@@ -1,5 +1,6 @@
 Edward Robot
-==============
+
+[![CircleCI](https://circleci.com/gh/edxzh/edward_robot.svg?style=svg)](https://circleci.com/gh/edxzh/edward_robot)
 
 ### About
 
